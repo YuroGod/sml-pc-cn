@@ -1,11 +1,11 @@
-# SML PC
+# SML PC CN
 <!-- GETTING STARTED -->
 ## Getting Started
 
 ### Clone The Repo
 
 ```sh
-git clone https://github.com/lukas0x1/sml-pc.git
+git clone https://github.com/YuroGod/sml-pc-cn.git
 ```
 
 ### Unzipping lib/release/libmem.7z
@@ -21,6 +21,3 @@ nmake
 ```
 ## VS has issue with libmem when linking so use CLI (x64 Native Tools Command Prompt for VS 2022)
 
-
-### Contact
-https://discord.gg/B5YEuvmT
