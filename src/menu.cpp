@@ -403,8 +403,8 @@ R"text(
 ------------------------------------------------------------
                | SML Loader / Sky Mod Loader |
    Developed by lukas0x1, TheSR, XeTrinityz, and yunkunsky!
-
-> Thank you for using SML Loader!             [Build v0.1.4]
+   Modified by yuro
+> Thank you for using SML Loader!             [Build v1.0.0]
 ------------------------------------------------------------
 )text";
             }
