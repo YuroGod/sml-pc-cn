@@ -22,105 +22,105 @@ struct FontConfig {
     unsigned int unicodeRangeEnd = 0;
 } fontconfig;
 
-std::vector<std::string> Server_Names;
-std::vector<std::string> Server_Urls;
-std::string Selected_Url;
-bool Server_Urls_Initialized = false;
+//std::vector<std::string> Server_Names;
+//std::vector<std::string> Server_Urls;
+//std::string Selected_Url;
+//bool Server_Urls_Initialized = false;
 
 namespace Menu {
 
-    void ReadServerUrls(const std::string& filepath, std::vector<std::string>& names, std::vector<std::string>& urls) {
-        try {
-            std::ifstream file(filepath);
-            if (!file.is_open()) {
-                throw std::runtime_error("Could not open config file: " + filepath);
-            }
+    //void ReadServerUrls(const std::string& filepath, std::vector<std::string>& names, std::vector<std::string>& urls) {
+    //    try {
+    //        std::ifstream file(filepath);
+    //        if (!file.is_open()) {
+    //            throw std::runtime_error("Could not open config file: " + filepath);
+    //        }
 
-            json j;
-            file >> j;
+    //        json j;
+    //        file >> j;
 
-            // Access the Server_Urls object and populate names and values vectors
-            for (const auto& item : j["Server_Urls"].items()) {
-                names.push_back(item.key());
-                urls.push_back(item.value().get<std::string>());
-            }
-        } catch (const std::exception& e) {
-            std::cerr << "Error reading server URLs: " << e.what() << std::endl;
-        }
-    }
+    //        // Access the Server_Urls object and populate names and values vectors
+    //        for (const auto& item : j["Server_Urls"].items()) {
+    //            names.push_back(item.key());
+    //            urls.push_back(item.value().get<std::string>());
+    //        }
+    //    } catch (const std::exception& e) {
+    //        std::cerr << "Error reading server URLs: " << e.what() << std::endl;
+    //    }
+    //}
 
-    std::string ReadDefaultServerUrl(const std::string& filepath) {
-        std::string line;
-        try {
-            std::ifstream file(filepath);
-            if (!file.is_open()) {
-                throw std::runtime_error("Could not open AppInfo file: " + filepath);
-            }
+    //std::string ReadDefaultServerUrl(const std::string& filepath) {
+    //    std::string line;
+    //    try {
+    //        std::ifstream file(filepath);
+    //        if (!file.is_open()) {
+    //            throw std::runtime_error("Could not open AppInfo file: " + filepath);
+    //        }
 
-            for (int i = 0; i < 2; ++i) { // Read the second line
-                std::getline(file, line);
-                if (file.eof()) {
-                    throw std::runtime_error("File does not have enough lines: " + filepath);
-                }
-            }
-        } 
-        catch (const std::exception& e) {
-            std::cerr << "Error reading default server URL: " << e.what() << std::endl;
-        }
-        return line;
-    }
+    //        for (int i = 0; i < 2; ++i) { // Read the second line
+    //            std::getline(file, line);
+    //            if (file.eof()) {
+    //                throw std::runtime_error("File does not have enough lines: " + filepath);
+    //            }
+    //        }
+    //    } 
+    //    catch (const std::exception& e) {
+    //        std::cerr << "Error reading default server URL: " << e.what() << std::endl;
+    //    }
+    //    return line;
+    //}
 
-    void ShowServerUrlSelector(const std::vector<std::string>& names, const std::vector<std::string>& urls, std::string& selectedurl) {
-        if (ImGui::BeginCombo("Server", selectedurl.c_str())) {
-            for (size_t i = 0; i < names.size(); ++i) {
-                bool isSelected = (urls[i] == selectedurl);
-                if (ImGui::Selectable(names[i].c_str(), isSelected)) {
-                    selectedurl = urls[i];
-                }
-                if (isSelected) {
-                    ImGui::SetItemDefaultFocus();
-                }
-            }
-            ImGui::EndCombo();
-        }
-    }
+    //void ShowServerUrlSelector(const std::vector<std::string>& names, const std::vector<std::string>& urls, std::string& selectedurl) {
+    //    if (ImGui::BeginCombo("Server", selectedurl.c_str())) {
+    //        for (size_t i = 0; i < names.size(); ++i) {
+    //            bool isSelected = (urls[i] == selectedurl);
+    //            if (ImGui::Selectable(names[i].c_str(), isSelected)) {
+    //                selectedurl = urls[i];
+    //            }
+    //            if (isSelected) {
+    //                ImGui::SetItemDefaultFocus();
+    //            }
+    //        }
+    //        ImGui::EndCombo();
+    //    }
+    //}
 
-    void SaveSelectedServerUrl(const std::string& filepath, const std::string& selectedUrl) {
-        try {
-            std::ifstream infile(filepath);
-            if (!infile.is_open()) {
-                throw std::runtime_error("Could not open AppInfo file for reading: " + filepath);
-            }
+    //void SaveSelectedServerUrl(const std::string& filepath, const std::string& selectedUrl) {
+    //    try {
+    //        std::ifstream infile(filepath);
+    //        if (!infile.is_open()) {
+    //            throw std::runtime_error("Could not open AppInfo file for reading: " + filepath);
+    //        }
 
-            std::string content;
-            std::string line;
-            int lineCount = 0;
+    //        std::string content;
+    //        std::string line;
+    //        int lineCount = 0;
 
-            while (std::getline(infile, line)) {
-                // Remove any trailing '\r' characters if there is any
-                if (!line.empty() && line.back() == '\r') {
-                    line.pop_back();
-                }
-                
-                if (lineCount == 1) { // Replace the second line
-                    content += selectedUrl + "\n";
-                } else {
-                    content += line + "\n";
-                }
-                ++lineCount;
-            }
-            infile.close();
+    //        while (std::getline(infile, line)) {
+    //            // Remove any trailing '\r' characters if there is any
+    //            if (!line.empty() && line.back() == '\r') {
+    //                line.pop_back();
+    //            }
+    //            
+    //            if (lineCount == 1) { // Replace the second line
+    //                content += selectedUrl + "\n";
+    //            } else {
+    //                content += line + "\n";
+    //            }
+    //            ++lineCount;
+    //        }
+    //        infile.close();
 
-            std::ofstream outfile(filepath, std::ios::out | std::ios::binary);
-            if (!outfile.is_open()) {
-                throw std::runtime_error("Could not open AppInfo file for writing: " + filepath);
-            }
+    //        std::ofstream outfile(filepath, std::ios::out | std::ios::binary);
+    //        if (!outfile.is_open()) {
+    //            throw std::runtime_error("Could not open AppInfo file for writing: " + filepath);
+    //        }
 
-            outfile << content;
-        } catch (const std::exception& e) {
-            std::cerr << "Error saving selected server URL: " << e.what() << std::endl;
-        }
-    }
+    //        outfile << content;
+    //    } catch (const std::exception& e) {
+    //        std::cerr << "Error saving selected server URL: " << e.what() << std::endl;
+    //    }
+    //}
 
     void loadFontConfig(const std::string& filename, FontConfig& fontconfig) {
         std::ifstream file(filename);
@@ -354,7 +354,7 @@ namespace Menu {
 
             ig::Spacing();
 
-            ig::PushStyleVar(ImGuiStyleVar_SeparatorTextBorderSize, 1.f);
+            /*ig::PushStyleVar(ImGuiStyleVar_SeparatorTextBorderSize, 1.f);
             ig::SeparatorText("Custom Server");
             ig::PopStyleVar();
 
@@ -391,7 +391,7 @@ namespace Menu {
                 }
             }
 
-            ig::Spacing();
+            ig::Spacing();*/
             ig::Separator();
             ig::Spacing();
 
