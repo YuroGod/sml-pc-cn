@@ -286,7 +286,7 @@ DWORD WINAPI hook_thread(PVOID lParam) {
     print("Searching for Sky Window\n");
     while (!window) {
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
-        window = FindWindowA("TgcMainWindow", "Sky");
+        window = FindWindowA("TgcMainWindow", "¹â¡¤Óö");
     }
     layer::setup(window);
     oWndProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(window, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(WndProc)));
